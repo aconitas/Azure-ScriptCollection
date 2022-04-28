@@ -1,6 +1,7 @@
 # First you need to add Credentials to Store: 
 # New-StoredCredential -Target 'User_AppProxyCertificateChange' -Credentials $(Get-Credential)
 
+[CmdletBinding()]
 param (
     [Parameter(Mandatory)][string]$TenantID,
     [Parameter(Mandatory)][string]$AppRegistrationObjectID,
