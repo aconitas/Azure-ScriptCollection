@@ -1,12 +1,13 @@
 [CmdletBinding()]
 param (
-    [Parameter(Mandatory)][ValidateNotNullorEmpty()][TypeName]$FilterAzureRegion,
-    [Parameter(Mandatory)][ValidateNotNullorEmpty()][TypeName]$FilterVMSKU
+    [Parameter(Mandatory)][ValidateNotNullorEmpty()][string]$TenantID,
+    [Parameter(Mandatory)][ValidateNotNullorEmpty()][string]$FilterAzureRegion,
+    [Parameter(Mandatory)][ValidateNotNullorEmpty()][string]$FilterVMSKU
 )
 
 #Requires -Modules Az
 
-Connect-AzAccount
+Connect-AzAccount -TenantId $TenantID
 
 $SubscriptionID = (Get-AzContext).Subscription.Id
 
