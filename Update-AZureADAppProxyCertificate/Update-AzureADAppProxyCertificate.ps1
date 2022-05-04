@@ -1,33 +1,23 @@
-# First you need to add Credentials to Store: 
-# New-StoredCredential -Target 'User_AppProxyCertificateChange' -Credentials $(Get-Credential)
-
 [CmdletBinding()]
 param (
-    [Parameter(Mandatory)][string]$TenantID,
-    [Parameter(Mandatory)][string]$AppRegistrationObjectID,
-    [Parameter(Mandatory)][string]$PFXFilePath,
-    [Parameter(Mandatory)][securestring]$PFXFilePassword
+    [Parameter(Mandatory)][string]$taskName,
+    [Parameter(Mandatory)][string]$tenantID,
+    [Parameter(Mandatory)][string]$appRegistrationObjectID,
+    [Parameter(Mandatory)][string]$pfxFilePath
 )
 
-#Requires -Version 5.1
-#Requires -Modules AzureAD
-#Requires -Modules CredentialManager
+Start-Transcript -Path "$PSScriptRoot\Update-AzureADAppProxyCertificate.log"
 
-If ((Test-Path -Path $PFXFilePath) -eq $False) {
-    Write-Host "The pfx file does not exist." -ForegroundColor Red
-    Write-Host " "
+$credential = Get-StoredCredential -Target 'Azure_ApplicationAdministrator'
+$pfxFilePassword = (Get-StoredCredential -Target $taskName).Password
 
-    Exit
-}
-else {Write-Host "Pass PFX Path Test"}
+Write-Host "Connect to Azure... " -ForegroundColor Yellow
+Connect-AzureAD -TenantID $tenantID -Credential $credential -Verbose
 
-if (!(Get-StoredCredential -Target 'User_AppProxyCertificateChange')) {
-    Write-Host "No credentials for User_AppProxyCertificateChange" -ForegroundColor Red
-}
-else {Write-Host "Pass CredentialManager Test"}
+Write-Host "Upload Certificate to Azure..." -ForegroundColor Yellow
+Set-AzureADApplicationProxyApplicationCustomDomainCertificate -ObjectId $appRegistrationObjectID -PFXFilePath $pfxFilePath -Password $pfxFilePassword -Verbose
 
-$Credential = Get-StoredCredential -Target 'User_AppProxyCertificateChange'
+Write-Host "Disconnect from Azure... " -ForegroundColor Yellow
+Disconnect-AzureAD -Verbose
 
-Connect-AzureAD -TenantID $TenantID -Credential $Credential
-Set-AzureADApplicationProxyApplicationCustomDomainCertificate -ObjectId $AppRegistrationObjectID -PFXFilePath $PFXFilePath -Password $PFXFilePassword -Verbose
-Disconnect-AzureAD
+Stop-Transcript

@@ -1,16 +1,22 @@
 # Description
-Script is used to Update the Azure AD App Proxy Certificate. After certificate request trough Certify the Web.
 
-Adding this to CTW Tasks, doesn't work now because scripts are always run by the system account.
+# Parameter
+There are only a few parameters for the Setup-Script.ps1 but I recommend to run the script without parameters an let it ask you all it needs.
 
-# Add Credentials to Windows Credential Manager
-```powershell
-New-StoredCredential -Target 'User_AppProxyCertificateChange' -Credentials $(Get-Credential)
-```
-
-# Parameters
+| Parameter | Default Value | Description |
+|---|---|---|
+| TaskName | n/a | Display Name for Scheduled Task |
+| TenantID | n/a | Microsoft Tenant ID, can be shown in Azure Portal |
+| AppRegistrationObjectID | n/a | Object ID of the App Registration for your App. |
 
 # Usage Example
 ```powershell
-.\Update-AzureADAppProxyCertificate.ps1 -TenantID "00000000-0000-0000-0000-000000000000" -AppRegistrationObjectID "10000000-1000-1000-1000-100000000000" -PFXFilePath "C:\Temp\certificate.pfx"
+PS C:\Temp\ChangeAzureCertificate> .\Setup-Script.ps1
+cmdlet Setup-Script.ps1 at command pipeline position 1
+Supply values for the following parameters:
+taskName: AzuerCertChange-Test
+tenantID: 84dfafd5-910b-4de5-9f8b-408e215d19c7
+appRegistrationObjectID: 8790b635-4816-40a1-9dee-5918859d45f7
+Transcript started, output file is C:\aconitas\ChangeAzureCertificate\Setup-Script.log
+Required PowerShell Module AzureAD is not installed. Installing...
 ```
