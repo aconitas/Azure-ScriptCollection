@@ -29,8 +29,6 @@ foreach ($SkuName in $FilterVMSKUs.Name)
     }
 }
 
-# Test Kommentar
-
 $OutTable | Select-Object Name, Location, "Applies to SubscriptionID", "Subscription Restriction", "Zone Restriction" | Sort-Object -Property Name | Format-Table
 
 Disconnect-AzAccount
