@@ -2,13 +2,14 @@
 param (
     [Parameter(Mandatory)][string]$taskName,
     [Parameter(Mandatory)][string]$tenantID,
+    [Parameter(Mandatory)][string]$azureCredTarget,
     [Parameter(Mandatory)][string]$appRegistrationObjectID,
     [Parameter(Mandatory)][string]$pfxFilePath
 )
 
 Start-Transcript -Path "$PSScriptRoot\Update-AzureADAppProxyCertificate.log"
 
-$credential = Get-StoredCredential -Target 'Azure_ApplicationAdministrator'
+$credential = Get-StoredCredential -Target $azureCredTarget
 $pfxFilePassword = (Get-StoredCredential -Target $taskName).Password
 
 Write-Host "Connect to Azure... " -ForegroundColor Yellow

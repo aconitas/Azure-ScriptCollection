@@ -1,0 +1,29 @@
+﻿{
+    "Certificates":  
+    [
+        {
+            "certificateUrl":  "example.tld",
+            "taskName":  "---UpdateAzADAppProxyCert---example.tld",
+            "tenantID":  "00000000-0000-0000-0000-000000000000",
+            "azureUserCredMgrTarget": "AzAppAdmin_example.tld",
+            "appRegistrationObjectID":  "00000000-0000-0000-0000-000000000000"
+        },
+        {
+            "certificateUrl":  "example1.tld",
+            "taskName":  "---UpdateAzADAppProxyCert---example1.tld",
+            "tenantID":  "10000000-0000-0000-0000-000000000000",
+            "azureUserCredMgrTarget": "AzAppAdmin_example1.tld",
+            "appRegistrationObjectID":  "10000000-0000-0000-0000-000000000000"
+        },
+        {
+            "certificateUrl":  "example2.tld",
+            "taskName":  "---UpdateAzADAppProxyCert---example2.tld",
+            "tenantID":  "20000000-0000-0000-0000-000000000000",
+            "azureUserCredMgrTarget": "AzAppAdmin_example2.tld",
+            "appRegistrationObjectID":  "20000000-0000-0000-0000-000000000000"
+        }
+    ]
+}
+
+
+-Profil laden

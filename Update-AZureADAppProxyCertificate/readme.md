@@ -34,3 +34,25 @@ There are only a few parameters for the Setup-Script.ps1 but I recommend to run 
 | TaskName | n/a | Display Name for Scheduled Task |
 | TenantID | n/a | Microsoft Tenant ID, can be shown in Azure Portal |
 | AppRegistrationObjectID | n/a | Object ID of the App Registration for your App. |
+
+
+# ToDo
+- support for multible certificates
+    - extend config in json
+- taskname schema: ---UpdateAzureAppProxy-<Cert-URL> (e.g. ---UpdateAzureAppProxy-pps.aconitas.com)
+    - only ask for cert url
+- auto user creation
+    - aks global admin
+    - create custom role per application with app admin role base, scope app
+    - create user add all custom roles
+- setup script with menu
+    - add/remove task
+    - add/remove azure app admin
+
+
+-> Rollout Bindig
+-> Script mit Menü
+-> Inital
+-> Änderung bestand
+-> Entfernen einzeln
+-> Entfernen komplett inkl. Azure Userö
