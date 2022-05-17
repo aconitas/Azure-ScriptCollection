@@ -1,13 +1,13 @@
 [CmdletBinding()]
 param (
     [Parameter()]$result,
-    [Parameter()][string]$certificateUrl
+    [Parameter()][string]$primaryUrl
 )
 
 Start-Transcript -Path "$PSScriptRoot\Start-ScheduledTask.log"
 
-$configJSON = Get-Content -Raw -Path "$PSScriptRoot\config.json" | ConvertFrom-Json
-$configEntry = $configJSON.Certificates | Where-Object certificateUrl -eq $certificateUrl
+$configJSON = (Get-Content -Raw -Path "$PSScriptRoot\config.json" | ConvertFrom-Json).Certificates
+$configEntry = $configJSON | Where-Object primaryUrl -eq $primaryUrl
 
 $taskName = $configEntry.taskName
 $tenantID = $configEntry.tenantID
