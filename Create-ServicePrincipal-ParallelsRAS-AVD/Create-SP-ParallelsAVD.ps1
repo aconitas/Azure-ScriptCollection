@@ -5,7 +5,7 @@ param (
     [Parameter(Mandatory)][string[]]$resourceGroups
 )
 
-$requiredPSModules = 'Az'
+$requiredPSModules = 'Az.Accounts','Az.Resources'
 
 foreach ($psModule in $requiredPSModules) {
     if (Get-Module -Name $psModule) {
