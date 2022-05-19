@@ -28,32 +28,30 @@ else {
     Exit
 }
 
-############################
-
 foreach ($certificate in $configJSON) {
     # save azure credentials to windows credential manager
     if (!(Get-StoredCredential -Target $certificate.azureUserCredMgrTarget)) {
-        Write-Host "No entry for ${certificate.azureUserCredMgrTarget} found in Credential Manager" -ForegroundColor Red
+        Write-Host "No entry for $($certificate.azureUserCredMgrTarget) found in Credential Manager" -ForegroundColor Red
         Write-Host 'Please enter credentials for an azure user with application administrator role.' -ForegroundColor Yellow
         New-StoredCredential -Target $certificate.azureUserCredMgrTarget -Credentials $(Get-Credential)
     }
     else {
-        Write-Host "Credentials for ${certificate.azureUserCredMgrTarget} already in Credential manager." -ForegroundColor Yellow
+        Write-Host "Credentials for $($certificate.azureUserCredMgrTarget) already in Credential manager." -ForegroundColor Yellow
     }
 
     # save pfx password to windows credential manager
     if (!(Get-StoredCredential -Target $certificate.azurePFXCredMgrTarget)) {
-        Write-Host "No entry for ${certificate.azurePFXCredMgrTarget} found in Credential Manager" -ForegroundColor Red
-        Write-Host 'Please enter pfx password for the pfx file: ' -ForegroundColor Yellow
-        New-StoredCredential -Target $certificate.primaryUrl -UserName $certificate.primaryUrl -Password $(Read-Host)
+        Write-Host "No entry for $($certificate.azurePFXCredMgrTarget) found in Credential Manager" -ForegroundColor Red
+        Write-Host "Please enter pfx password for the $($certificate.primaryUrl) pfx file: " -ForegroundColor Yellow
+        New-StoredCredential -Target $certificate.azurePFXCredMgrTarget -UserName $certificate.primaryUrl -Password $(Read-Host)
     }
     else {
-        Write-Host "Credentials for ${certificate.azurePFXCredMgrTarget} already in Credential manager." -ForegroundColor Yellow
+        Write-Host "Credentials for $($certificate.azurePFXCredMgrTarget) already in Credential manager." -ForegroundColor Yellow
     }
 
     # add scheduled task witout schedule
     if (Get-ScheduledTask -TaskName $certificate.taskName -ErrorAction SilentlyContinue) {
-        Write-Host "Update task ${certificate.taskName} is already created." -ForegroundColor Yellow
+        Write-Host "Update task $($certificate.taskName) is already created." -ForegroundColor Yellow
     }
     else {
         Write-Host 'Creating scheduled task... ' -ForegroundColor Yellow
