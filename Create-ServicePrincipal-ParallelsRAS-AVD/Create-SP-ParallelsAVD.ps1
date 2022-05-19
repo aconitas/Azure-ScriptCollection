@@ -20,7 +20,7 @@ foreach ($psModule in $requiredPSModules) {
     }
 }
 
-Connect-AzAccount -TenantId $tenantID -SubscriptionId $subscriptionID -
+Connect-AzAccount -TenantId $tenantID -SubscriptionId $subscriptionID
 
 $sp = New-AzADServicePrincipal -DisplayName 'Parallels RAS'
 
