@@ -6,9 +6,9 @@ Information source: https://kb.parallels.com/125236
 # Parameter
 | Parameter | Default Value | Description |
 |---|---|---|
-| TenantId | n/a | n/a |
-| SubscriptionID | n/a | n/a |
-| ResourceGroups | n/a | n/a |
+| TenantId | n/a |  |
+| SubscriptionID | n/a |  |
+| ResourceGroups | n/a | Multible groups can uses separated by comma. |
 
 
 # Usage Example
