@@ -24,8 +24,11 @@ Connect-AzAccount -TenantId $tenantID -SubscriptionId $subscriptionID
 
 $sp = New-AzADServicePrincipal -DisplayName 'Parallels RAS'
 
-New-AzRoleAssignment -ApplicationId $sp.AppId -RoleDefinitionName 'Reader' -Scope "/subscriptions/$subscriptionID"
 New-AzRoleAssignment -ApplicationId $sp.AppId -RoleDefinitionName 'User Access Administrator' -Scope "/subscriptions/$subscriptionID"
+
+# Microsoft Graph
+Add-AzADAppPermission -ApplicationId $sp.AppId -ApiId 00000003-0000-0000-c000-000000000000 -PermissionId 5b567255-7703-4780-807c-7be8301ae99b -Type Role # Application - Group.Read.All
+Add-AzADAppPermission -ApplicationId $sp.AppId -ApiId 00000003-0000-0000-c000-000000000000 -PermissionId df021288-bdef-4463-88db-98f22de89214 -Type Role # Application - Users.Read.All
 
 foreach ($rg in $resourceGroups) {
     New-AzRoleAssignment -ResourceGroupName $rg -ApplicationId $sp.AppId -RoleDefinitionName 'Contributor'
@@ -33,7 +36,8 @@ foreach ($rg in $resourceGroups) {
 
 Disconnect-AzAccount
 
-Write-Host "Mandanten-ID:" $tenantID -ForegroundColor Yellow
-Write-Host "Abonnement-ID:" $subscriptionID -ForegroundColor Yellow
-Write-Host "Anwendungs-ID:" $sp.AppId -ForegroundColor Yellow
-Write-Host "Anwendungsschluessel:" $sp.PasswordCredentials.SecretText -ForegroundColor Yellow
+Write-Host "Tenant ID:" $tenantID -ForegroundColor Yellow
+Write-Host "Subscription ID:" $subscriptionID -ForegroundColor Yellow
+Write-Host "Application (client) ID:" $sp.AppId -ForegroundColor Yellow
+Write-Host "Application client secret:" $sp.PasswordCredentials.SecretText -ForegroundColor Yellow
+Write-Host ">> You need to grant admin consent via Azure Portal because Azure PowerShell doesn't support it yet!" -ForegroundColor Red
