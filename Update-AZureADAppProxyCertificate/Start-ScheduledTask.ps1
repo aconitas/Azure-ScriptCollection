@@ -27,6 +27,6 @@ $argument = "-Command `"& '$PSScriptRoot\Update-AzureADAppProxyCertificate.ps1' 
 $action = New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -Argument $argument -WorkingDirectory $PSScriptRoot
 Set-ScheduledTask -TaskName $taskName -Action $action -User $taskUserCred.UserName -Password $plainbstr
 
-# Start-ScheduledTask -TaskName $taskName -Verbose
+Start-ScheduledTask -TaskName $taskName -Verbose
 
 Stop-Transcript
