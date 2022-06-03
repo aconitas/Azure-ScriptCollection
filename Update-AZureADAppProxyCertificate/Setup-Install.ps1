@@ -1,4 +1,6 @@
-Start-Transcript -Path "$PSScriptRoot\setup.log"
+#Requires -RunAsAdministrator
+
+Start-Transcript -Path "$PSScriptRoot\setup-install.log"
 
 $currentUser = whoami
 Write-Host "Running setup.ps1 as $currentUser"
@@ -28,6 +30,20 @@ else {
     Exit
 }
 
+# save task user to windows credential manager
+if (!(Get-StoredCredential -Target "---UpdateAzADAppProxyCert--TaskUser")) {
+    Write-Host "No entry for ---UpdateAzADAppProxyCert--TaskUser found in Credential Manager" -ForegroundColor Red
+    $currentUserCred = Get-Credential -UserName $currentUser -Message 'Please enter credentials for the current user: '
+    New-StoredCredential -Target "---UpdateAzADAppProxyCert--TaskUser" -Credentials $currentUserCred
+}
+else {
+    Write-Host "Credentials for ---UpdateAzADAppProxyCert--TaskUser already in Credential manager." -ForegroundColor Yellow
+}
+
+$currentUserCred = Get-StoredCredential -Target "---UpdateAzADAppProxyCert--TaskUser"
+$bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($currentUserCred.Password);
+$plainbstr = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr);
+
 foreach ($certificate in $configJSON) {
     # save azure credentials to windows credential manager
     if (!(Get-StoredCredential -Target $certificate.azureUserCredMgrTarget)) {
@@ -55,12 +71,14 @@ foreach ($certificate in $configJSON) {
     }
     else {
         Write-Host 'Creating scheduled task... ' -ForegroundColor Yellow
+       
         $action = New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
         $trigger = New-ScheduledTaskTrigger -Once -At '01/01/2022 01:00:00 AM'
-        $principal = New-ScheduledTaskPrincipal -UserId $currentUser -RunLevel Highest
+        $principal = New-ScheduledTaskPrincipal -UserId $currentUser -LogonType Password -RunLevel Highest
         $settings = New-ScheduledTaskSettingsSet
         $task = New-ScheduledTask -Description 'Task is triggerd manualy by "Certify the Web" and updates the azure app proxy certificate for custom domain.' -Action $action -Principal $principal -Trigger $trigger -Settings $settings
-        Register-ScheduledTask -TaskName $certificate.taskName -InputObject $task
+        
+        Register-ScheduledTask -TaskName $certificate.taskName -InputObject $task -User $currentUser -Password $plainbstr
     }
 }
 
