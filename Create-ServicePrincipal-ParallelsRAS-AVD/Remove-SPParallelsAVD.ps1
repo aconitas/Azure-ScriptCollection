@@ -22,7 +22,7 @@ foreach ($psModule in $requiredPSModules) {
 Connect-AzAccount -TenantId $tenantID -SubscriptionId $subscriptionID
 
 $sp = Get-AzADServicePrincipal -DisplayName 'Parallels RAS'
-$spAssignedScopes = Get-AzRoleAssignment -ObjectId $sp.ID | Select Scope, RoleDefinitionName
+$spAssignedScopes = Get-AzRoleAssignment -ObjectId $sp.ID | Select-Object Scope, RoleDefinitionName
 
 foreach ($scope in $spAssignedScopes) {
     Remove-AzRoleAssignment -ObjectId $sp.Id -RoleDefinitionName $scope.RoleDefinitionName -Scope $scope.Scope

@@ -1,0 +1,47 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20220524072756
+Username: ACONITAS\daniel.engler
+RunAs User: ACONITAS\daniel.engler
+Configuration Name: 
+Machine: WS-N4FQRVKZUPE6 (Microsoft Windows NT 10.0.22000.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -Command Import-Module 'c:\Users\daniel.engler\.vscode\extensions\ms-vscode.powershell-2022.5.1\modules\PowerShellEditorServices\PowerShellEditorServices.psd1'; Start-EditorServices -HostName 'Visual Studio Code Host' -HostProfileId 'Microsoft.VSCode' -HostVersion '2022.5.1' -AdditionalModules @('PowerShellEditorServices.VSCode') -BundledModulesPath 'c:\Users\daniel.engler\.vscode\extensions\ms-vscode.powershell-2022.5.1\modules' -EnableConsoleRepl -StartupBanner '=====> PowerShell Integrated Console v2022.5.1 <=====
+' -LogLevel 'Normal' -LogPath 'c:\Users\daniel.engler\.vscode\extensions\ms-vscode.powershell-2022.5.1\logs\1653369256-3a39ea99-386c-4e13-8de9-83c8ce986c631653369173699\EditorServices.log' -SessionDetailsPath 'c:\Users\daniel.engler\.vscode\extensions\ms-vscode.powershell-2022.5.1\sessions\PSES-VSCode-11964-254529' -FeatureFlags @() 
+Process ID: 40228
+PSVersion: 5.1.22000.653
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.22000.653
+BuildVersion: 10.0.22000.653
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\daniel.engler\OneDrive - aconitas GmbH\Desktop\Update-ParallelsRASCertificate\setup.log
+Running setup.ps1 as aconitas\daniel.engler
+
+Required PowerShell Module CredentialManager is installed.
+Credentials for ---ServiceAccountRASCertUpdate already in Credential manager.
+Creating scheduled task...
+Register-ScheduledTask : No mapping between account names and security IDs was done.
+
+(17,8):UserId:
+At C:\Users\daniel.engler\OneDrive - aconitas GmbH\Desktop\Update-ParallelsRASCertificate\setup.ps1:49 char:5
++     Register-ScheduledTask -TaskName $taskName `
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (PS_ScheduledTask:Root/Microsoft/...S_ScheduledTask) 
+[Register-ScheduledTask], CimException
+    + FullyQualifiedErrorId : HRESULT 0x80070534,Register-ScheduledTask
+Register-ScheduledTask : No mapping between account names and security IDs was done.
+
+(17,8):UserId:
+At C:\Users\daniel.engler\OneDrive - aconitas GmbH\Desktop\Update-ParallelsRASCertificate\setup.ps1:49 char:5
++     Register-ScheduledTask -TaskName $taskName `
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (PS_ScheduledTask:Root/Microsoft/...S_ScheduledTask) [Register-ScheduledTask], CimException
+    + FullyQualifiedErrorId : HRESULT 0x80070534,Register-ScheduledTask
+
+**********************
+Windows PowerShell transcript end
+End time: 20220524072757
+**********************

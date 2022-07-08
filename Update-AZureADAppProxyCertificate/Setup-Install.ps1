@@ -22,7 +22,7 @@ foreach ($psModule in $requiredPSModules) {
 if (Test-Path -Path "$PSScriptRoot\config.json" -PathType Leaf) {
     Write-Host `n"Found config.json ..." -ForegroundColor Yellow
     Write-Host  "Import config.json ..." -ForegroundColor Yellow
-    $configJSON = (Get-Content -Raw -Path "$PSScriptRoot\config.json" | ConvertFrom-Json).Certificates
+    $configJSON = (Get-Content -Raw -Path "$PSScriptRoot\config.json" | ConvertFrom-Json)
 }
 else {
     Write-Host `n"Config.json not found!" -ForegroundColor Red
@@ -72,13 +72,19 @@ foreach ($certificate in $configJSON) {
     else {
         Write-Host 'Creating scheduled task... ' -ForegroundColor Yellow
        
-        $action = New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+        $taskName = $certificate.taskName
+        $tenantID = $certificate.tenantID
+        $azureCredTarget = $certificate.credentialManagerEntry
+        $appRegistrationObjectID = $certificate.appRegistrationObjectID
+
+        $argument = "-Command `"& '$PSScriptRoot\Update-AzureADAppProxyCertificate.ps1' -taskName '$taskName' -tenantID '$tenantID' -azureCredTarget $azureCredTarget -appRegistrationObjectID '$appRegistrationObjectID'`""
+        $action = New-ScheduledTaskAction -Execute "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -Argument $argument -WorkingDirectory $PSScriptRoot
         $trigger = New-ScheduledTaskTrigger -Once -At '01/01/2022 01:00:00 AM'
         $principal = New-ScheduledTaskPrincipal -UserId $currentUser -LogonType Password -RunLevel Highest
         $settings = New-ScheduledTaskSettingsSet
         $task = New-ScheduledTask -Description 'Task is triggerd manualy by "Certify the Web" and updates the azure app proxy certificate for custom domain.' -Action $action -Principal $principal -Trigger $trigger -Settings $settings
         
-        Register-ScheduledTask -TaskName $certificate.taskName -InputObject $task -User $currentUser -Password $plainbstr
+        Register-ScheduledTask -TaskName $taskName -InputObject $task -User $currentUser -Password $plainbstr
     }
 }
 

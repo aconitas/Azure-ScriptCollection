@@ -1,29 +1,29 @@
-﻿{
-    "Certificates":  
-    [
-        {
-            "primaryUrl":  "example.tld",
-            "taskName":  "---UpdateAzADAppProxyCert--example.tld",
-            "azureUserCredMgrTarget": "---AzAppAdmin--example.tld",
-            "azurePFXCredMgrTarget": "---PfxPw--example.tld",
-            "tenantID":  "00000000-0000-0000-0000-000000000000",
-            "appRegistrationObjectID":  "00000000-0000-0000-0000-000000000000"
-        },
-        {
-            "primaryUrl":  "example2.tld",
-            "taskName":  "---UpdateAzADAppProxyCert--example2.tld",
-            "azureUserCredMgrTarget": "---AzAppAdmin--example2.tld",
-            "azurePFXCredMgrTarget": "---PfxPw--example2.tld",
-            "tenantID":  "00000000-0000-0000-0000-000000000000",
-            "appRegistrationObjectID":  "00000000-0000-0000-0000-000000000000"
-        },
-        {
-            "primaryUrl":  "example3.tld",
-            "taskName":  "---UpdateAzADAppProxyCert--example3.tld",
-            "azureUserCredMgrTarget": "---AzAppAdmin--example3.tld",
-            "azurePFXCredMgrTarget": "---PfxPw--example3.tld",
-            "tenantID":  "00000000-0000-0000-0000-000000000000",
-            "appRegistrationObjectID":  "00000000-0000-0000-0000-000000000000"
-        }
-    ]
-}
+﻿[
+	{
+		"primaryUrl":  "example.tld",
+		"taskName":  "---UpdateAzADAppProxyCert--example.tld",
+		"azureUserCredMgrTarget": "---AzAppAdmin--example.tld",
+		"azurePFXCredMgrTarget": "---PfxPw--example.tld",
+		"tenantID":  "00000000-0000-0000-0000-000000000000",
+		"appRegistrationObjectID":  "00000000-0000-0000-0000-000000000000",
+		"certificatePath": ""
+	},
+	{
+		"primaryUrl":  "example2.tld",
+		"taskName":  "---UpdateAzADAppProxyCert--example2.tld",
+		"azureUserCredMgrTarget": "---AzAppAdmin--example2.tld",
+		"azurePFXCredMgrTarget": "---PfxPw--example2.tld",
+		"tenantID":  "00000000-0000-0000-0000-000000000000",
+		"appRegistrationObjectID":  "00000000-0000-0000-0000-000000000000",
+		"certificatePath": ""
+	},
+	{
+		"primaryUrl":  "example3.tld",
+		"taskName":  "---UpdateAzADAppProxyCert--example3.tld",
+		"azureUserCredMgrTarget": "---AzAppAdmin--example3.tld",
+		"azurePFXCredMgrTarget": "---PfxPw--example3.tld",
+		"tenantID":  "00000000-0000-0000-0000-000000000000",
+		"appRegistrationObjectID":  "00000000-0000-0000-0000-000000000000",
+		"certificatePath": ""
+	}
+]
